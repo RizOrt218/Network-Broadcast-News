@@ -1,41 +1,33 @@
-const net = require( 'net' );
-const host = 'localhost';
-const port = 9999;
-const username = require( './username' );
+const net   = require( 'net' );
+const host  = 'localhost';
+const port  = 9999;
 
 var chatters = [];
 
 const server = net.createServer( (client) => {
-  client.setEncoding( 'utf8' );
-  var id = 2000;
-  //what client will get when they get connected
-  client.write('This is your server, Welcome!\n Enter username: ');
+  var username = null;
 
-  //when a client has been connected
-  process.stdout.write('Connected to: '+ chatters.length +'\n');
+  client.setEncoding( 'utf8' );
+  //readable to client when they connect
+  client.write('This is your server, Welcome!\nEnter username: ');
+
+  //prompts server when a client connected
+  process.stdout.write('Connected to '+host+': '+client.remotePort+'\n');
 
   //trying to create an array to track who's connecting
   chatters.push( client );
-
+  // console.log( chatters );
   //when client types something it'll return to other clients
   client.on('data', function (data) {
     if( client.hasOwnProperty( 'username' ) === false ) {
-      console.log( 'no username' );
       client.username = data.toUpperCase().trim();
+      username = client.username;
     }
 
     for(var i = 0; i < chatters.length; i++) {
-
-      //this avoids recieving data from current chatter
-      //while current chatter sends out data to others
-      if( chatters[i] !== client ) {
-        chatters[i].write( data )
-        console.log( chatters[i] );
-      }
-
+      chatters[i].write( '\r'+ username +': ' + data);
     }
-  })
-
+  }) // end of client.on
 
   //when client ends connection
   client.on('end', function () {
