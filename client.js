@@ -7,15 +7,15 @@ const server = net.connect({ host: HOST , port: PORT }, () => {
   process.stdin.setEncoding( 'utf8' );
   server.setEncoding( 'utf8' );
 
-  process.stdout.write('ClientASays: ');
+  //default username
+  // process.stdout.write('Username: ');
 
   process.stdin.on('data', (data) => {
     server.write( data );
   });
 
-  //
   server.on('data', (data) => {
-    process.stdout.write('\r' + data + '\nClientASays: ');
+    process.stdout.write(data);
   });
 
   //when server ends connection
