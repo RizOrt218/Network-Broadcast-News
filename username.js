@@ -4,7 +4,7 @@ module.exports = (function () {
   var getUsername = function ( data ) {
     process.stdin( data );
     console.log( data );
-  }
+  };
 
   return getUsername;
-}())
+}());

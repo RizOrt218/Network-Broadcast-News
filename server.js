@@ -28,11 +28,6 @@ const server = net.createServer( (client, username) => {
 
     for( var i = 0; i < chatters.length; i++ ) {
       chatters[i].write( data );
-      // if( chatters[i] !== client ) {
-      //   chatters[i].write( username +': ' + data );
-      // } else {
-      //   chatters[i].write( username +': ' + data )
-      // }
     }
   }) // end of client.on
 

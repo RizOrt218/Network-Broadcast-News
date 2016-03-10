@@ -19,6 +19,6 @@ const server = net.connect({ host: HOST , port: PORT }, () => {
 
   //when server ends connection
   server.on('end', function () {
-    console.log('end connection')
-  })
+    console.log('end connection');
+  });
 });
